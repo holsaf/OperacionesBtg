@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to deploy the BTG Operaciones application
+
+Parameters:
+  BtgOperacionesKeyPair:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+
+Resources:
+  # Security Group
+  BtgOperacionesSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH and HTTP access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
+          CidrIp: 0.0.0.0/0
+
+  # IAM Role
+  BtgOperacionesIAMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: S3Access
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                Resource: arn:aws:s3:::btg-operaciones-bucket/*
+
+  # Instance Profile
+  BtgOperacionesInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - Ref: BtgOperacionesIAMRole
+
+  # EC2 Instance
+  BtgOperacionesInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: !Ref BtgOperacionesKeyPair
+      SecurityGroups:
+        - Ref: BtgOperacionesSecurityGroup
+      IamInstanceProfile:
+        Ref: BtgOperacionesInstanceProfile
+      ImageId: ami-0d5eff06f840b45e9 # Amazon Linux 2 AMI
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          yum update -y
+          yum install -y java-17-amazon-corretto
+          aws s3 cp s3://btg-operaciones-bucket/operaciones-1.0.jar /home/ec2-user/operaciones-1.0.jar
+          java -jar /home/ec2-user/operaciones-1.0.jar
+
+Outputs:
+  InstanceId:
+    Description: The Instance ID
+    Value: !Ref BtgOperacionesInstance
+  PublicIP:
+    Description: Public IP of the EC2 instance
+    Value: !GetAtt BtgOperacionesInstance.PublicIp
