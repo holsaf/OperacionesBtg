@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "445dcad3-c187-49e8-99a6-3bcf131d1561",
+		"name": "BTGPACTAL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18146429"
+	},
+	"item": [
+		{
+			"name": "local",
+			"item": [
+				{
+					"name": "guardarTransaccion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idCliente\": \"66ff373f72e9c9081c063c51\",\r\n  \"idFondo\": \"66ff35534eca251e1d37467e\",\r\n  \"tipoTransaccion\": \"APERTURAR\",\r\n  \"tipoNotificacion\": \"SMS\",\r\n  \"valorMonto\": 200000.00,\r\n  \"fechaTransaccion\": \"2023-10-01T12:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/transacciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transacciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultarTransacciones",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idCliente\": \"12345\",\r\n  \"idFondo\": \"67890\",\r\n  \"tipoTransaccion\": \"APERTURAR\",\r\n  \"tipoNotificacion\": \"SMS\",\r\n  \"valorMonto\": 1000000.50,\r\n  \"fechaTransaccion\": \"2023-10-01T12:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/transacciones/66ff373f72e9c9081c063c51/valorMonto/0/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transacciones",
+								"66ff373f72e9c9081c063c51",
+								"valorMonto",
+								"0",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "guardarFondo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombreFondo\": \"FPV_BTG_PACTUAL_DINAMICA\",\r\n  \"tipoFondo\": \"FPV\",\r\n  \"montoMinimo\": 100000.00,\r\n  \"saldoFondo\": 1000000.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/fondos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"fondos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "guardarCliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombreCliente\": \"Mak Donalt\",\r\n  \"correoElectronico\": \"xxxxxxxxxxxxx\",\r\n  \"numeroCelular\": \"+5731xxxxxxxx3\",\r\n  \"valorSaldo\": 1000000.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cloud",
+			"item": [
+				{
+					"name": "aws_consultar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idCliente\": \"12345\",\r\n  \"idFondo\": \"67890\",\r\n  \"tipoTransaccion\": \"APERTURAR\",\r\n  \"tipoNotificacion\": \"SMS\",\r\n  \"valorMonto\": 1000000.50,\r\n  \"fechaTransaccion\": \"2023-10-01T12:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://54.84.15.157:8080/api/transacciones/66ff373f72e9c9081c063c51/valorMonto/0/6",
+							"protocol": "http",
+							"host": [
+								"54",
+								"84",
+								"15",
+								"157"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transacciones",
+								"66ff373f72e9c9081c063c51",
+								"valorMonto",
+								"0",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "guardarFondo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombreFondo\": \"FPV_BTG_PACTUAL_DINAMICA\",\r\n  \"tipoFondo\": \"FPV\",\r\n  \"montoMinimo\": 100000.00,\r\n  \"saldoFondo\": 1000000.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://54.84.15.157:8080/api/fondos",
+							"protocol": "http",
+							"host": [
+								"54",
+								"84",
+								"15",
+								"157"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"fondos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "guardarCliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombreCliente\": \"Mak Donalt\",\r\n  \"correoElectronico\": \"hol.tk@hotmail.com\",\r\n  \"numeroCelular\": \"+573185158536\",\r\n  \"valorSaldo\": 500000.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://54.84.15.157:8080/api/clientes",
+							"protocol": "http",
+							"host": [
+								"54",
+								"84",
+								"15",
+								"157"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "guardarTransaccion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idCliente\": \"66ff373f72e9c9081c063c51\",\r\n  \"idFondo\": \"66ff357a4eca251e1d37467f\",\r\n  \"tipoTransaccion\": \"APERTURAR\",\r\n  \"tipoNotificacion\": \"SMS\",\r\n  \"valorMonto\": 200000.00,\r\n  \"fechaTransaccion\": \"2023-10-01T12:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://54.84.15.157:8080/api/transacciones",
+							"protocol": "http",
+							"host": [
+								"54",
+								"84",
+								"15",
+								"157"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transacciones"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
